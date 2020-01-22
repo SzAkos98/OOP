@@ -13,6 +13,7 @@ void writePersonListToFile (PersonList &personList, const std::string &outFile =
 void DataBaseEdit();
 
 int main() {
+    PersonFactory::setPersonFactory(new PersonFactoryImpl());
 
     DataBaseEdit();
     return 0;
@@ -32,7 +33,8 @@ void DataBaseEdit() {
 
     std::cout << "Welcome to the database simulation!" << std::endl <<
               "Commands:\n 1. List all members (1)" << std::endl <<
-              " 2. Add a new member (2)" << std::endl;
+              " 2. Add a new member (2)" << std::endl <<
+              " 3. Quite" << std::endl;
 
     std::string input;
     std::cin >> input;
@@ -66,8 +68,11 @@ void DataBaseEdit() {
         personList.printPersonList(std::cout);
         writePersonListToFile(personList,fileName);
         DataBaseEdit();
+    } else if (input =="3") {
+        std::cout << "Quiting";
     } else {
         std::cout << "Wrong command please try again" << std::endl;
+        DataBaseEdit();
     }
 }
 
@@ -77,7 +82,6 @@ void readPersonListFromFile(PersonList &personList, const std::string &fileName)
     if (!infile) {
         throw std::invalid_argument("Error opening input file");
     }
-    PersonFactory::setPersonFactory(new PersonFactoryImpl());
     personList.readPersonList(infile);
     std::cout << "Reading was succesful" << std::endl;
 }

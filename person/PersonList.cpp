@@ -27,7 +27,7 @@ void PersonList::readPersonList(std::istream &istream) {
 
 void PersonList::writePersonList(std::ostream &ostream) {
     for (auto &item:personList) {
-        ostream << *item << std::endl;
+        ostream << std::endl << *item ;
     }
 }
 
